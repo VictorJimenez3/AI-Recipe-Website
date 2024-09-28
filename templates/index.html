@@ -20,10 +20,46 @@
             .then(response => response.json())
             .then(data => {
                 alert(data.message);
+                displayRecipes(data.data); // Call function to display recipes
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+        }
+
+        function displayRecipes(recipes) {
+            const recipesDiv = document.getElementById('recipes');
+            recipesDiv.innerHTML = ''; // Clear previous recipes
+
+            // Check if recipes is an array
+            if (Array.isArray(recipes)) {
+                recipes.forEach(recipe => {
+                    const recipeElement = document.createElement('div');
+                    recipeElement.className = 'recipe'; // Add a class for styling if needed
+                    recipeElement.innerHTML = `
+                        <h2>${recipe.title}</h2>
+                        <p>${recipe.description}</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                        </ul>
+                    `;
+                    recipesDiv.appendChild(recipeElement);
+                });
+            } else {
+                // If a single recipe is returned, handle it
+                const recipeElement = document.createElement('div');
+                recipeElement.className = 'recipe'; // Add a class for styling if needed
+                recipeElement.innerHTML = `
+                    <h2>${recipes.title}</h2>
+                    <p>${recipes.description}</p>
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        ${recipes.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                    </ul>
+                `;
+                recipesDiv.appendChild(recipeElement);
+            }
         }
 
         function redirect() {
