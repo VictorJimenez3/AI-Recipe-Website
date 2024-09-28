@@ -32,6 +32,8 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+from bson import ObjectId  # Import this to handle ObjectId conversion
+
 @app.route('/run-script', methods=['POST'])
 def run_script():
     user_input = request.json.get('ingredients', '')  # Get ingredients from the request
@@ -45,8 +47,11 @@ def run_script():
     text_content = response._result.candidates[0].content.parts[0].text
     recipe_data = json.loads(text_content)
 
-    # Save the recipe to MongoDB
-    recipes_collection.insert_one(recipe_data)
+    # Save the recipe to MongoDB and capture the insert result
+    insert_result = recipes_collection.insert_one(recipe_data)
+
+    # Convert ObjectId to a string and include it in the response
+    recipe_data['_id'] = str(insert_result.inserted_id)
 
     # Prepare a response message
     return jsonify({
@@ -54,6 +59,7 @@ def run_script():
         "data": recipe_data,
         "ingredients": user_input.split(',')  # Return the ingredients as a list
     })
+
 
 if __name__ == '__main__':
     app.run(debug=True)
