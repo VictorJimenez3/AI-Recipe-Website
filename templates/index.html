@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+    <link rel="stylesheet" href="main.css">
+    <script>
+        function myFunction() {
+            const ingredients = document.getElementById('ingredients').value;
+
+            fetch('/run-script', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ingredients: ingredients })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function redirect() {
+            window.open('templates/loginpage.html', '_blank');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Recipe Generator</h1>
+        <textarea id="ingredients" placeholder="Enter your ingredients, separated by commas..."></textarea>
+        <button id="generate" onclick="myFunction()">Generate Recipes</button>
+        <div id="recipes"></div>
+    </div>
+    
+    <br>
+    
+    <div class="container">
+        <button id="loginRedirect" onclick="redirect()">Login/Create an account</button>
+    </div>
+</body>
+
+</html>
