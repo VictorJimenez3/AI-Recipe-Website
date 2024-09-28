@@ -19,8 +19,9 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data); // Log the response to check its structure
                 alert(data.message);
-                displayRecipes(data.data); // Call function to display recipes
+                displayRecipes(data.data.recipes); // Access the recipes array
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -34,32 +35,23 @@
             // Check if recipes is an array
             if (Array.isArray(recipes)) {
                 recipes.forEach(recipe => {
-                    const recipeElement = document.createElement('div');
-                    recipeElement.className = 'recipe'; // Add a class for styling if needed
-                    recipeElement.innerHTML = `
-                        <h2>${recipe.title}</h2>
-                        <p>${recipe.description}</p>
-                        <h3>Ingredients:</h3>
-                        <ul>
-                            ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                        </ul>
-                    `;
-                    recipesDiv.appendChild(recipeElement);
+                    createRecipeElement(recipe, recipesDiv);
                 });
-            } else {
-                // If a single recipe is returned, handle it
-                const recipeElement = document.createElement('div');
-                recipeElement.className = 'recipe'; // Add a class for styling if needed
-                recipeElement.innerHTML = `
-                    <h2>${recipes.title}</h2>
-                    <p>${recipes.description}</p>
-                    <h3>Ingredients:</h3>
-                    <ul>
-                        ${recipes.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                    </ul>
-                `;
-                recipesDiv.appendChild(recipeElement);
             }
+        }
+
+        function createRecipeElement(recipe, container) {
+            const recipeElement = document.createElement('div');
+            recipeElement.className = 'recipe'; // Add a class for styling if needed
+            recipeElement.innerHTML = `
+                <h2>${recipe.title}</h2>
+                <p>${recipe.description}</p>
+                <h3>Ingredients:</h3>
+                <ul>
+                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                </ul>
+            `;
+            container.appendChild(recipeElement);
         }
 
         function redirect() {
