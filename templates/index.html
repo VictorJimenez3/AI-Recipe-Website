@@ -20,7 +20,7 @@
             .then(response => response.json())
             .then(data => {
                 alert(data.message);
-                displayRecipes(data.data); // Call function to display recipes
+                displayRecipes(data.data.recipes); // Pass the recipes array directly
             })
             .catch(error => {
                 console.error('Error:', error);
