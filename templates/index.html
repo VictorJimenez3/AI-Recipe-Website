@@ -32,6 +32,7 @@
             recipesDiv.innerHTML = ''; // Clear previous recipes
 
             // Check if recipes is an array
+            console.log(Array.isArray(recipes));
             if (Array.isArray(recipes)) {
                 recipes.forEach(recipe => {
                     const recipeElement = document.createElement('div');
