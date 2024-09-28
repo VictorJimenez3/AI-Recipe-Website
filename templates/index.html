@@ -32,11 +32,13 @@
             const recipesDiv = document.getElementById('recipes');
             recipesDiv.innerHTML = ''; // Clear previous recipes
 
-            // Check if recipes is an array
-            if (Array.isArray(recipes)) {
+            // Check if recipes is an array and has elements
+            if (Array.isArray(recipes) && recipes.length > 0) {
                 recipes.forEach(recipe => {
                     createRecipeElement(recipe, recipesDiv);
                 });
+            } else {
+                recipesDiv.innerHTML = '<p>No recipes found. Please try different ingredients.</p>';
             }
         }
 
