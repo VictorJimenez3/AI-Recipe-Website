@@ -23,7 +23,7 @@ h1 {
     border-radius: 15px;
     background-color: #282828; /* Dark background for recipe section */
     display: flex;
-    padding: 20px;
+    /*padding: 20px;*/
     flex-wrap: wrap; /* Allow wrapping */
     justify-content: space-between; /* Space out items */
     color: #00ffea; /* Neon cyan */
