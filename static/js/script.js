@@ -57,17 +57,24 @@
             }
 
             function displayRecipes(data) {
+                console.log("Data passed to displayRecipes:", data); // Log the incoming data
                 const recipesDiv = document.getElementById('recipes');
                 recipesDiv.innerHTML = ''; // Clear previous recipes
-
-                if (Array.isArray(data.recipes)) {
-                    data.recipes.forEach(recipe => {
-                        appendRecipe(recipesDiv, recipe);
-                    });
+            
+                // Check if recipes key exists and is an array
+                if (data && Array.isArray(data.recipes)) {
+                    if (data.recipes.length > 0) {
+                        data.recipes.forEach(recipe => {
+                            appendRecipe(recipesDiv, recipe);
+                        });
+                    } else {
+                        console.error('No recipes found in the response data');
+                    }
                 } else {
-                    appendRecipe(recipesDiv, data);
+                    console.error('No recipes key found or it is not an array');
                 }
             }
+            
 
             function appendRecipe(recipesDiv, recipe) {
                 console.log("Appending recipe:", recipe); // Log each recipe
@@ -101,6 +108,7 @@
                 recipesDiv.appendChild(recipeElement);
             }
             
+            
 
             function saveRecipe(title, description, ingredients) {
                 fetch('/save-recipe', {
@@ -133,3 +141,4 @@
                 })
                 .catch(error => console.error('Error:', error));
             }
+            
