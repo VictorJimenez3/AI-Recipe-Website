@@ -24,7 +24,7 @@
                 }
             } catch (error) {
                 console.error('Error parsing JSON:', error);
-                alert("Unexpected error. Please try again later.");
+                alert("invalid input.");
             }
         })
         .catch(error => {
