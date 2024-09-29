@@ -49,10 +49,10 @@ def run_script():
 
     # Save the recipe to MongoDB and capture the insert result
 
-#    insert_result = recipes_collection.insert_one(recipe_data)
+    insert_result = recipes_collection.insert_one(recipe_data)
 
     # Convert ObjectId to a string and include it in the response
- #   recipe_data['_id'] = str(insert_result.inserted_id)
+    recipe_data['_id'] = str(insert_result.inserted_id)
 
     # Prepare a response message
     return jsonify({
