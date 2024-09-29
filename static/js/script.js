@@ -92,10 +92,14 @@
                     <ul>
                         ${Array.isArray(recipe.ingredients) ? recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('') : '<li>No ingredients available</li>'}
                     </ul>
-                    <h3>Allergens:</h3>
-                    <p>${recipe.allergens || 'None'}</p>
+                    <h3>Allergen Information:</h3>
+                    <p>${recipe.AllergenInformation || 'None'}</p>
                     <h4>${calorieLabel}:</h4>
                     <p>${calorieValue}</p>
+                    <h3>Approximate Calorie Count:</h3>
+                    <p>${recipe.ApproximateCalorieCount || 'None'}</p>
+                    <h3>Instructions:</h3>
+                    <p>${recipe.Instructions || 'None'}</p>
                 `;
                 
                 recipesDiv.appendChild(recipeElement);
