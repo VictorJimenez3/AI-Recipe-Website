@@ -51,7 +51,7 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 10px;
-            background-color: #d4edda; /* Light green background for individual recipes */
+            background-color: #f5fee8; /* Light green background for individual recipes */
             flex: 1 1 calc(30% - 10px); /* Each recipe takes up about 30% of the container */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
             margin: 5px; /* Space between recipe items */
@@ -133,27 +133,33 @@
         }
     </style>
     <script>
-        function myFunction() {
-            const ingredients = document.getElementById('ingredients').value;
+  function myFunction() {
+    const ingredients = document.getElementById('ingredients').value;
 
-            // Create sparkles
-            createSparkles();
+    // Create sparkles
+    createSparkles();
 
-            fetch('/run-script', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ ingredients: ingredients })
-            })
-            .then(response => response.json())
-            .then(data => {
-                displayRecipes(data.data); // Pass the data object directly
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+    fetch('/run-script', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ingredients: ingredients })
+    })
+    .then(response => response.text()) // Get the response as text
+    .then(data => {
+        if (data === "{invalid}") {
+            alert("Please provide valid ingredients or requests related to kitchen only.");
+        } else {
+            const jsonData = JSON.parse(data); // Parse the JSON data
+            displayRecipes(jsonData.data); // Pass the data object directly
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 
         function createSparkles() {
             const button = document.querySelector('.button');
