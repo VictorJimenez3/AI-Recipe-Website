@@ -10,6 +10,16 @@
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 <body>
+    <div class="video-container">
+        <video autoplay muted loop id="background-video">
+          <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="content">
+          <!-- Your content here -->
+          <h1>Recipe Generator</h1>
+        </div>
+      </div>      
     <div id="rest-of-the-website" class="container-fluid">
             <h1 id="title" style="font-size: 70px;" class="text-center display-1">Recipe Generator</h1>
             <div id="textarea" class="mt-4">

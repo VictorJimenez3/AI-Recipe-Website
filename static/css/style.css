@@ -113,3 +113,32 @@ h3 {
 #center {
     text-align: justify;
 }
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+  }
+  
+  #background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1; /* Ensure the video is behind content */
+    transform: translate(-50%, -50%);
+    background-size: cover;
+    filter: brightness(0.5); /* Optional: darken the video */
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1; /* Content stays above the video */
+    text-align: center;
+    color: white; /* Ensure text is visible */
+    font-size: 3rem;
+  }
+  
