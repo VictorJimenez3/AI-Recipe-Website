@@ -70,22 +70,19 @@
             }
 
             function appendRecipe(recipesDiv, recipe) {
+                console.log("Appending recipe:", recipe); // Log each recipe
                 const recipeElement = document.createElement('div');
                 recipeElement.className = 'recipe';
             
-                // Determine the calories display text and value
                 let calorieLabel = '';
                 let calorieValue = '';
             
                 if (recipe.calories) {
                     calorieLabel = 'Calories';
                     calorieValue = recipe.calories;
-                } else if (recipe.Calories) {
-                    calorieLabel = 'Calories';
-                    calorieValue = recipe.Calories;
                 } else {
-                    calorieLabel = 'Calories'; // Or 'calories', whichever you prefer
-                    calorieValue = 'Not available'; // Default text if neither is present
+                    calorieLabel = 'Calories';
+                    calorieValue = 'Not available';
                 }
             
                 recipeElement.innerHTML = `
@@ -93,10 +90,10 @@
                     <p>${recipe.description}</p>
                     <h3>Ingredients:</h3>
                     <ul>
-                        ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                        ${Array.isArray(recipe.ingredients) ? recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('') : '<li>No ingredients available</li>'}
                     </ul>
                     <h3>Allergens:</h3>
-                    <p>${recipe.allergens}</p>
+                    <p>${recipe.allergens || 'None'}</p>
                     <h4>${calorieLabel}:</h4>
                     <p>${calorieValue}</p>
                 `;
@@ -129,7 +126,10 @@
                         'Content-Type': 'application/json',
                     }
                 })
-                    .then(response => response.json())
-                    .then(data => displayRecipes(data))
-                    .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the response data to see its structure
+                    displayRecipes(data);
+                })
+                .catch(error => console.error('Error:', error));
             }
