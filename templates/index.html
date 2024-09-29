@@ -1,128 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Generator</title>
-    <link rel="stylesheet" href="style.css">
-
-    <script>
-function myFunction() {
-    const ingredients = document.getElementById('ingredients').value;
-
-    // Create sparkles
-    createSparkles();
-
-    fetch('/run-script', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ingredients: ingredients })
-    })
-    .then(response => response.text()) // Get the response as text
-    .then(data => {
-        try {
-            const jsonData = JSON.parse(data); // Parse the JSON data
-
-            // Check for error in response data
-            if (jsonData.data && jsonData.data.error === "invalid") {
-                alert("Error: Invalid request. Please provide valid ingredients.");
-            } else {
-                displayRecipes(jsonData.data); // Pass the data object directly if no error
-            }
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-            alert("Unexpected error. Please try again later.");
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Failed to fetch the recipe. Please check your connection.");
-    });
-}
-
-
-
-        function createSparkles() {
-            const button = document.querySelector('.button');
-            const sparkleCount = 10; // Number of sparkles
-
-            for (let i = 0; i < sparkleCount; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('sparkle');
-
-                // Position the sparkle randomly
-                sparkle.style.left = `${Math.random() * button.offsetWidth}px`;
-                sparkle.style.top = `${Math.random() * button.offsetHeight}px`;
-
-                button.appendChild(sparkle);
-
-                // Remove the sparkle after animation
-                setTimeout(() => {
-                    sparkle.remove();
-                }, 600); // Match this to the duration of the animation
-            }
-        }
-
-        function displayRecipes(data) {
-            const recipesDiv = document.getElementById('recipes');
-            recipesDiv.innerHTML = ''; // Clear previous recipes
-
-            if (Array.isArray(data.recipes)) {
-                data.recipes.forEach(recipe => {
-                    appendRecipe(recipesDiv, recipe);
-                });
-            } else {
-                appendRecipe(recipesDiv, data);
-            }
-        }
-
-        function appendRecipe(recipesDiv, recipe) {
-            const recipeElement = document.createElement('div');
-            recipeElement.className = 'recipe';
-            recipeElement.innerHTML = `
-                <h2>${recipe.title}</h2>
-                <p>${recipe.description}</p>
-                <h3>Ingredients:</h3>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-                <h3>Allergens:</h3>
-                <p>${recipe.allergen_information}</p>
-                <h4>Calories:</h4>
-                <p>${recipe.calorie_count}</p>
-
-            `;
-            recipesDiv.appendChild(recipeElement);
-        }
-    </script>
+    <!-- Link to CSS using Flask's url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Link to JS using Flask's url_for -->
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
-
 <body>
     <div id="rest-of-the-website" class="container-fluid">
         <div class="container py-5">
             <h1 id="title" style="font-size: 70px;" class="text-center display-1">Recipe Generator</h1>
+            
             <div id="textarea" class="mt-4">
-                <label for="inputname" class="block text-gray-800 font-semibold text-sm" class="form-label" style="color: #ffd700">Type in your ingredients. You may ask for a recipe too.</label>
+                <label for="inputname" class="block text-sm font-semibold" style="color: #ffd700;">Type in your ingredients. You may ask for a recipe too.</label>
                 <div class="mt-2">
                     <input
                         type="text"
                         name="inputname"
-                        class="block w-56 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                        class="block w-100 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400"
                         id="ingredients"
                     />
                 </div>
             </div>
-            <div id="center" style="display: flex; justify-content: flex-end; margin-top: 20px;" class="d-flex justify-content-end mt-3">
+
+            <div id="center" class="d-flex justify-content-end mt-3" style="margin-top: 20px;">
                 <strong>
                     <button class="button" onclick="myFunction()">Generate</button>
                 </strong>
             </div>
         </div>
     </div>
+
     <div id="recipes" class="container d-flex flex-wrap justify-content-between"></div>
 </body>
-
 </html>
