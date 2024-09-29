@@ -4,6 +4,12 @@ from pymongo.server_api import ServerApi
 import json
 import google.generativeai as genai
 
+#Victor's Notes on inputs
+# - when the output ends in punctuation, the calories and allergens do not show.
+# When you ask it for a specific reciple while you also give igredients, it doesnt give that specific recipies, it gives random stuff from the ingredients.
+#when there are no alergens it says undefined, change this to none
+#also, sometimes it gives recipes with none of the igredients listed, its weird.
+
 # MongoDB connection
 uri = "mongodb+srv://vmj:RuEIzEBBBpqoWj13@cluster0.eulfz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tls=true"
 client = MongoClient(uri, server_api=ServerApi('1'))
