@@ -61,19 +61,19 @@
                 const recipesDiv = document.getElementById('recipes');
                 recipesDiv.innerHTML = ''; // Clear previous recipes
             
-                // Check if recipes key exists and is an array
-                if (data && Array.isArray(data.recipes)) {
-                    if (data.recipes.length > 0) {
-                        data.recipes.forEach(recipe => {
-                            appendRecipe(recipesDiv, recipe);
-                        });
-                    } else {
-                        console.error('No recipes found in the response data');
-                    }
+                if (Array.isArray(data.recipes)) {
+                    data.recipes.forEach(recipe => {
+                        appendRecipe(recipesDiv, recipe);
+                    });
                 } else {
-                    console.error('No recipes key found or it is not an array');
+                    console.error('Expected data.recipes to be an array, got:', data.recipes);
+                    // Optionally handle the case when `data.recipes` is not an array
                 }
             }
+            
+            
+            
+            
             
 
             function appendRecipe(recipesDiv, recipe) {
@@ -103,11 +103,11 @@
                     <p>${recipe.allergens || 'None'}</p>
                     <h4>${calorieLabel}:</h4>
                     <p>${calorieValue}</p>
-                    <button class="button" onclick="saveRecipe('${recipe.title}', '${recipe.description}', '${recipe.ingredients.join(",")}')">Save Recipe</button>
                 `;
                 
                 recipesDiv.appendChild(recipeElement);
             }
+            
             
             
             
@@ -143,4 +143,7 @@
                 })
                 .catch(error => console.error('Error:', error));
             }
+            
+            
+            
             
