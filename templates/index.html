@@ -8,79 +8,95 @@
     <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
+        
         html {
             font-family: "Open Sans", sans-serif;
             font-weight: 400; /* Default weight for body text */
-            background-color: #f4fced;
+            background-color: #282828; /* Silver background */
         }
-
+    
         #rest-of-the-website {
             font-family: "Open Sans", sans-serif;
             font-weight: 400; /* Default weight for body text */
             margin-left: 30%;
             margin-right: 30%;
         }
-
+    
         h1 {
             margin: 0;
             margin-top: 10%; /* Reset margin for better spacing */
             text-align: center;
+            color: #ff00ff; /* Neon pink */
         }
-
+    
         #recipes {
             margin: 10px;
             border-radius: 15px;
-            background-color: rgb(185, 252, 104);
+            background-color: #282828; /* Dark background for recipe section */
             display: flex;
             padding: 20px;
             flex-wrap: wrap; /* Allow wrapping */
             justify-content: space-between; /* Space out items */
+            color: #00ffea; /* Neon cyan */
         }
-
+    
         h2 {
             font-weight: 700; /* Weight for titles */
+            color: #ffd700; /* Gold titles */
         }
-
+    
         h3 {
             font-weight: 600; /* Weight for subheadings */
+            color: #39ff14; /* Neon green */
         }
-
+    
         .recipe {
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 2px solid #ff00ff; /* Neon pink border */
             border-radius: 8px;
             padding: 10px;
-            background-color: #f5fee8; /* Light green background for individual recipes */
+            background-color: #8000ff; /* Vibrant purple background for individual recipes */
             flex: 1 1 calc(30% - 10px); /* Each recipe takes up about 30% of the container */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            box-shadow: 0 4px 10px rgba(255, 0, 255, 0.6); /* Pink shadow */
             margin: 5px; /* Space between recipe items */
+            color: #fff; /* White text for readability */
         }
 
+        .recipe:hover {
+        box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+        }
+
+    
         #textarea {
             margin-top: 50px;
         }
-
+    
         #ingredients {
             width: 100%;
             height: 80px; /* Increased height */
             padding: 12px; /* Added padding */
-            border: 2px solid #ccc; /* Border color */
+            border: 2px solid #ff00ff; /* Neon pink border */
             border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            box-shadow: 0 2px 5px rgba(255, 0, 255, 0.5); /* Pink shadow */
             font-size: 16px; /* Increased font size */
             transition: border-color 0.3s ease; /* Smooth transition */
+            background-color: #1e1e2f; /* Dark background for input box */
+            color: #fff; /* White text */
+        }
+    
+        #ingredients:focus {
+            border-color: #00ffea; /* Neon cyan focus border */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 255, 234, 0.5); /* Cyan shadow on focus */
         }
 
-        #ingredients:focus {
-            border-color: #7fff4d; /* Focus border color */
-            outline: none; /* Remove default outline */
-            box-shadow: 0 0 5px rgba(68, 207, 66, 0.5); /* Focus shadow */
+        #ingredients:hover {
+        box-shadow: 0 0 10px hsl(175, 100%, 50%); /* Neon glow */
         }
 
         .button {
-            --😀: #7ce730;
-            --😀😀: #77d63b;
+            --😀: #00ffff; /* Neon cyan */
+            --😀😀: #ff00ff; /* Neon pink */
             cursor: pointer;
             margin: 10px;
             width: 144px;
@@ -99,18 +115,20 @@
             box-shadow: 0 8px 0 var(--😀😀);
             transition: all .1s ease;
         }
-
+    
         .button:active {
             letter-spacing: 0px;
             transform: translateY(2px);
             box-shadow: 0 0 0 var(--😀😀);
         }
-
+    
         #center {
             text-align: justify;
         }
  
     </style>
+    
+    
     <script>
 function myFunction() {
     const ingredients = document.getElementById('ingredients').value;
@@ -205,11 +223,11 @@ function myFunction() {
 </head>
 
 <body>
-    <div id="rest-of-the-website">
-        <div class="container">
-            <h1 id="title" style="font-size: 70px;">Recipe Generator</h1>
-            <div id="textarea">
-                <label for="inputname" class="block text-gray-800 font-semibold text-sm">Type in your ingredients. You may ask for a recipe too.</label>
+    <div id="rest-of-the-website" class="container-fluid">
+        <div class="container py-5">
+            <h1 id="title" style="font-size: 70px;" class="text-center display-1">Recipe Generator</h1>
+            <div id="textarea" class="mt-4">
+                <label for="inputname" class="block text-gray-800 font-semibold text-sm" class="form-label" style="color: #ffd700">Type in your ingredients. You may ask for a recipe too.</label>
                 <div class="mt-2">
                     <input
                         type="text"
@@ -219,14 +237,14 @@ function myFunction() {
                     />
                 </div>
             </div>
-            <div id="center" style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <div id="center" style="display: flex; justify-content: flex-end; margin-top: 20px;" class="d-flex justify-content-end mt-3">
                 <strong>
                     <button class="button" onclick="myFunction()">Generate</button>
                 </strong>
             </div>
         </div>
     </div>
-    <div id="recipes"></div>
+    <div id="recipes" class="container d-flex flex-wrap justify-content-between"></div>
 </body>
 
 </html>
