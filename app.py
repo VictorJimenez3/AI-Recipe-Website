@@ -36,8 +36,8 @@ from bson import ObjectId  # Import this to handle ObjectId conversion
 
 @app.route('/run-script', methods=['POST'])
 def run_script():
-    user_input = request.json.get('ingredients', '')  # Get ingredients from the request
-
+    user_input = request.json.get('ingredients', '')
+    
     response = model.generate_content([
         "You are a kitchen assistant program that suggests recipes based on the ingredients provided by the user. Follow these rules:Only provide responses related to the kitchen, cooking, or recipes.For any off-topic conversations, return data as invalid. If the user asks for recipe suggestions, provide 3 recipes, each with: -TitleBrief -descriptionList of ingredients.If the user specifically requests one recipe, provide only one.Include the following for each recipe:Allergen information, Approximate calorie count. If these are not applicaple or unknown,",
         "output: ",
@@ -45,7 +45,24 @@ def run_script():
     ])
 
     text_content = response._result.candidates[0].content.parts[0].text
-    recipe_data = json.loads(text_content)
+    
+    try:
+        # Try parsing the response as JSON
+        recipe_data = json.loads(text_content)
+    except json.JSONDecodeError:
+        # If parsing fails, return the text content for debugging
+        return jsonify({
+            "message": "Failed to parse response as JSON.",
+            "raw_response": text_content
+        }), 400
+
+    # Send a valid JSON response if parsing succeeds
+    return jsonify({
+        "message": "Recipe generated and saved successfully!",
+        "data": recipe_data,
+        "ingredients": user_input.split(',')  # Return the ingredients as a list
+    })
+
 
     # Save the recipe to MongoDB and capture the insert result
 
