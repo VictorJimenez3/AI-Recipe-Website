@@ -5,6 +5,12 @@ import json
 import google.generativeai as genai
 from bson import json_util  # For MongoDB JSON serialization
 
+#Victor's Notes on inputs
+# - when the output ends in punctuation, the calories and allergens do not show.
+# When you ask it for a specific reciple while you also give igredients, it doesnt give that specific recipies, it gives random stuff from the ingredients.
+#when there are no alergens it says undefined, change this to none
+#also, sometimes it gives recipes with none of the igredients listed, its weird.
+
 # MongoDB connection
 uri = "mongodb+srv://vmj:RuEIzEBBBpqoWj13@cluster0.eulfz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tls=true"
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -48,16 +54,33 @@ from bson import ObjectId  # Import this to handle ObjectId conversion
 
 @app.route('/run-script', methods=['POST'])
 def run_script():
-    user_input = request.json.get('ingredients', '')  # Get ingredients from the request
-
+    user_input = request.json.get('ingredients', '')
+    
     response = model.generate_content([
-        "you are a program that will provide the user with recipes and stuff about kitchen in general. you will take user input and suggest them recipes from the ingredients they have provided. you will not provide any response or help or recipes on off topic conversations outside of kitchen. you will only respond as {invalid} and nothing else. if user is looking for suggestions, you will provide 3 recipe suggestions. each one has to have a title, a description and ingredients. but if they are specifically looking for one recipe, you will only provide one. also, provide the allergens and calories.",
+        "You are a kitchen assistant program that suggests recipes based on the ingredients provided by the user. Follow these rules:Only provide responses related to the kitchen, cooking, or recipes.For any off-topic conversations, return data as error: invalid.DO NOT RETURN ANYTHING ELSE. If the user asks for recipe suggestions, provide 3 recipes, each with: -TitleBrief -descriptionList of ingredients.If the user specifically requests one recipe, provide only one.Include the following for each recipe:Allergen information, Approximate calorie count. If these are not applicaple or unknown,",
         "output: ",
         user_input
     ])
 
     text_content = response._result.candidates[0].content.parts[0].text
-    recipe_data = json.loads(text_content)
+    
+    try:
+        # Try parsing the response as JSON
+        recipe_data = json.loads(text_content)
+    except json.JSONDecodeError:
+        # If parsing fails, return the text content for debugging
+        return jsonify({
+            "message": "Failed to parse response as JSON.",
+            "raw_response": text_content
+        }), 400
+
+    # Send a valid JSON response if parsing succeeds
+    return jsonify({
+        "message": "Recipe generated and saved successfully!",
+        "data": recipe_data,
+        "ingredients": user_input.split(',')  # Return the ingredients as a list
+    })
+
 
     # Save the recipe to MongoDB and capture the insert result
 
