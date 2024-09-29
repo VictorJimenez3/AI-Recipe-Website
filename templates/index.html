@@ -215,10 +215,49 @@ function myFunction() {
                 <p>${recipe.allergen_information}</p>
                 <h4>Calories:</h4>
                 <p>${recipe.calorie_count}</p>
+        <button class="button" onclick="saveRecipe('${recipe.title}', '${recipe.description}', '${recipe.ingredients.join(",")}')">Save Recipe</button>
 
             `;
             recipesDiv.appendChild(recipeElement);
         }
+        function saveRecipe(title, description, ingredients) {
+            // Send the recipe to the server to save in MongoDB
+            fetch('/save-recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    ingredients: ingredients.split(',')
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Notify user about the save status
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function showSavedRecipes() {
+    // Fetch saved recipes from the server
+    fetch('/show-saved-recipes', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayRecipes(data);  // Pass the saved recipes to display them
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
     </script>
 </head>
 
@@ -240,6 +279,9 @@ function myFunction() {
             <div id="center" style="display: flex; justify-content: flex-end; margin-top: 20px;" class="d-flex justify-content-end mt-3">
                 <strong>
                     <button class="button" onclick="myFunction()">Generate</button>
+                </strong>
+                <strong>
+                    <button class="button" onclick="showSavedRecipes()">Show Saved Recipes</button>
                 </strong>
             </div>
         </div>
