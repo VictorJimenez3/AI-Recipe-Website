@@ -24,7 +24,7 @@
                 }
             } catch (error) {
                 console.error('Error parsing JSON:', error);
-                alert("Unexpected error. Please try again later.");
+                alert("invalid input.");
             }
         })
         .catch(error => {
@@ -57,35 +57,39 @@
             }
 
             function displayRecipes(data) {
+                console.log("Data passed to displayRecipes:", data); // Log the incoming data
                 const recipesDiv = document.getElementById('recipes');
                 recipesDiv.innerHTML = ''; // Clear previous recipes
-
-                if (Array.isArray(data.recipes)) {
-                    data.recipes.forEach(recipe => {
-                        appendRecipe(recipesDiv, recipe);
-                    });
+            
+                // Check if recipes key exists and is an array
+                if (data && Array.isArray(data.recipes)) {
+                    if (data.recipes.length > 0) {
+                        data.recipes.forEach(recipe => {
+                            appendRecipe(recipesDiv, recipe);
+                        });
+                    } else {
+                        console.error('No recipes found in the response data');
+                    }
                 } else {
-                    appendRecipe(recipesDiv, data);
+                    console.error('No recipes key found or it is not an array');
                 }
             }
+            
 
             function appendRecipe(recipesDiv, recipe) {
+                console.log("Appending recipe:", recipe); // Log each recipe
                 const recipeElement = document.createElement('div');
                 recipeElement.className = 'recipe';
             
-                // Determine the calories display text and value
                 let calorieLabel = '';
                 let calorieValue = '';
             
                 if (recipe.calories) {
                     calorieLabel = 'Calories';
                     calorieValue = recipe.calories;
-                } else if (recipe.Calories) {
-                    calorieLabel = 'Calories';
-                    calorieValue = recipe.Calories;
                 } else {
-                    calorieLabel = 'Calories'; // Or 'calories', whichever you prefer
-                    calorieValue = 'Not available'; // Default text if neither is present
+                    calorieLabel = 'Calories';
+                    calorieValue = 'Not available';
                 }
             
                 recipeElement.innerHTML = `
@@ -93,16 +97,17 @@
                     <p>${recipe.description}</p>
                     <h3>Ingredients:</h3>
                     <ul>
-                        ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                        ${Array.isArray(recipe.ingredients) ? recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('') : '<li>No ingredients available</li>'}
                     </ul>
                     <h3>Allergens:</h3>
-                    <p>${recipe.allergens}</p>
+                    <p>${recipe.allergens || 'None'}</p>
                     <h4>${calorieLabel}:</h4>
                     <p>${calorieValue}</p>
                 `;
                 
                 recipesDiv.appendChild(recipeElement);
             }
+            
             
 
             function saveRecipe(title, description, ingredients) {
@@ -129,7 +134,11 @@
                         'Content-Type': 'application/json',
                     }
                 })
-                    .then(response => response.json())
-                    .then(data => displayRecipes(data))
-                    .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the response data to see its structure
+                    displayRecipes(data);
+                })
+                .catch(error => console.error('Error:', error));
             }
+            

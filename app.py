@@ -40,7 +40,7 @@ model = genai.GenerativeModel(
 )
 
 # Fetch saved recipes from MongoDB
-# recipes = list(recipes_collection.find({}))
+recipes = list(recipes_collection.find({}))
 
 # Print recipes in a readable format
 #for recipe in recipes:
@@ -91,10 +91,10 @@ def run_script():
     # Save the recipe to MongoDB and capture the insert result
 
    
-    # insert_result = recipes_collection.insert_one(recipe_data)
+    insert_result = recipes_collection.insert_one(recipe_data)
 
     # Convert ObjectId to a string and include it in the response
-    # recipe_data['_id'] = str(insert_result.inserted_id)
+    recipe_data['_id'] = str(insert_result.inserted_id)
 
     # Prepare a response message
     return jsonify({
@@ -128,8 +128,11 @@ def show_saved_recipes():
     # Convert MongoDB ObjectId to string and format data for JSON response
     for recipe in recipes:
         recipe['_id'] = str(recipe['_id'])
-    
-    return jsonify(recipes)
+
+    print("Fetched recipes:", recipes)  # Log the fetched recipes for debugging
+
+    return jsonify({"recipes": recipes})  # Ensure this returns a dictionary with a "recipes" key
+
 
 if __name__ == '__main__':
     app.run(debug=True)
