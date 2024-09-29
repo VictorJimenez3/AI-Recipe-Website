@@ -133,7 +133,7 @@
         }
     </style>
     <script>
-  function myFunction() {
+function myFunction() {
     const ingredients = document.getElementById('ingredients').value;
 
     // Create sparkles
@@ -148,17 +148,26 @@
     })
     .then(response => response.text()) // Get the response as text
     .then(data => {
-        if (data === "{invalid}") {
-            alert("Please provide valid ingredients or requests related to kitchen only.");
-        } else {
+        try {
             const jsonData = JSON.parse(data); // Parse the JSON data
-            displayRecipes(jsonData.data); // Pass the data object directly
+
+            // Check for error in response data
+            if (jsonData.data && jsonData.data.error === "invalid") {
+                alert("Error: Invalid request. Please provide valid ingredients.");
+            } else {
+                displayRecipes(jsonData.data); // Pass the data object directly if no error
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            alert("Unexpected error. Please try again later.");
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        alert("Failed to fetch the recipe. Please check your connection.");
     });
 }
+
 
 
         function createSparkles() {
@@ -205,6 +214,11 @@
                 <ul>
                     ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
                 </ul>
+                <h3>Allergens:</h3>
+                <p>${recipe.allergen_information}</p>
+                <h4>Calories:</h4>
+                <p>${recipe.calorie_count}</p>
+
             `;
             recipesDiv.appendChild(recipeElement);
         }
