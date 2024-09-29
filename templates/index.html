@@ -18,12 +18,17 @@
             margin-right: 30%;
         }
 
-        h1{
+        h1 {
             margin: 0;
             margin-top: 10%; /* Reset margin for better spacing */
             text-align: center;
         }
-
+#recipes{
+    margin: 10px;
+    border-radius: 15px;
+    padding: 20px;
+ background-color: aqua;
+}
         h2 {
             font-weight: 700; /* Weight for titles */
         }
@@ -35,19 +40,79 @@
         .recipe {
             margin-bottom: 20px;
         }
-        #generate{
 
-width: 30%;
-margin-top: 70px;
-
+        #generate {
+            width: 20%;
+            margin-top: 7px;
+            text-align: left;
+            background-color: greenyellow;
+            border-radius: 7em;
+            height: 30px;
         }
-        #textarea{
+
+        button {
+            text-align: center;
+        }
+
+        #textarea {
             margin-top: 50px;
         }
-        #ingredients{
 
+        #ingredients {
             width: 100%;
-            height: 60px;
+            height: 80px; /* Increased height */
+            padding: 12px; /* Added padding */
+            border: 2px solid #ccc; /* Border color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            font-size: 16px; /* Increased font size */
+            transition: border-color 0.3s ease; /* Smooth transition */
+        }
+
+        #ingredients:focus {
+            border-color: #7fff4d; /* Focus border color */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(68, 207, 66, 0.5); /* Focus shadow */
+        }
+
+        input {
+            margin-top: 10px;
+        }
+
+        /* From Uiverse.io by btongheng */ 
+        .button {
+            --😀: #7ce730;
+            --😀😀: #77d63b;
+            --😀😀😀: #168d1063;
+            cursor: pointer;
+            margin: 10px;
+            width: 144px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.125em;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            background: var(--😀);
+            border: 2px solid var(--😀😀);
+            border-radius: .75rem;
+            box-shadow: 0 8px 0 var(--😀😀);
+            transform: skew(-10deg);
+            transition: all .1s ease;
+            filter: drop-shadow(0 15px 20px var(--😀😀😀));
+        }
+
+        .button:active {
+            letter-spacing: 0px;
+            transform: skew(-10deg) translateY(8px);
+            box-shadow: 0 0 0 var(--😀😀😀);
+        }
+
+        #center {
+            text-align: justify;
         }
     </style>
     <script>
@@ -107,26 +172,22 @@ margin-top: 70px;
     <div class="container">
         <h1 id="title" style="font-size: 70px;">Recipe Generator</h1>
         <div id="textarea">
-            <label for="inputname" class="block text-gray-800 font-semibold text-sm"
-              >Type in your ingredients. You may ask for a recipe too.</label
-            >
+            <label for="inputname" class="block text-gray-800 font-semibold text-sm">Type in your ingredients. You may ask for a recipe too.</label>
             <div class="mt-2">
-              <input
-                type="text"
-                name="inputname"
-                class="block w-56 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
-                id="ingredients"
-              />
+                <input
+                    type="text"
+                    name="inputname"
+                    class="block w-56 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                    id="ingredients"
+                />
             </div>
-          </div>
-                  <button id="generate" onclick="myFunction()">Generate Recipes</button>
+        </div>
+        <div id="center" style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <strong>
+                <button class="button" onclick="myFunction()">Generate</button> 
+            </strong>
+        </div>
         <div id="recipes"></div>
-    </div>
-    
-    <br>
-    
-    <div class="container">
-        <button id="loginRedirect" onclick="redirect()">Login/Create an account</button>
     </div>
 </body>
 
