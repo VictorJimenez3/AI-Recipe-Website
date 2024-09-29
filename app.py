@@ -18,12 +18,12 @@ from bson import json_util  # For MongoDB JSON serialization
 #also, sometimes it gives recipes with none of the igredients listed, its weird.
 
 # MongoDB connection
-uri = "mongodb+srv://vmj:RuEIzEBBBpqoWj13@cluster0.eulfz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tls=true"
+uri = "mongodb+srv://URI"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client['ai_recipe_generator']
 recipes_collection = db['recipes']
 
-genai.configure(api_key="AIzaSyBqgBuWyNOy9qrEABYmgK1aJBR2FJ8CRSw")
+genai.configure(api_key="APIKEY")
 
 # Create the model
 generation_config = {
