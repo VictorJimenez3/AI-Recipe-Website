@@ -39,7 +39,7 @@ def run_script():
     user_input = request.json.get('ingredients', '')  # Get ingredients from the request
 
     response = model.generate_content([
-        "you are a program that will provide the user with recipes and stuff about kitchen in general. you will take user input and suggest them recipes from the ingredients they have provided. you will not provide any response or help or recipes on off topic conversations outside of kitchen. you will only respond as {invalid} and nothing else. if user is looking for suggestions, you will provide 3 recipe suggestions. each one has to have a title, a description and ingredients. but if they are specifically looking for one recipe, you will only provide one.",
+        "you are a program that will provide the user with recipes and stuff about kitchen in general. you will take user input and suggest them recipes from the ingredients they have provided. you will not provide any response or help or recipes on off topic conversations outside of kitchen. you will only respond as {invalid} and nothing else. if user is looking for suggestions, you will provide 3 recipe suggestions. each one has to have a title, a description and ingredients. but if they are specifically looking for one recipe, you will only provide one. also, provide the allergens and calories.",
         "output: ",
         user_input
     ])
