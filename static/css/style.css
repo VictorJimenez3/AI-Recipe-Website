@@ -137,8 +137,6 @@ h3 {
   .content {
     position: relative;
     z-index: 1; /* Content stays above the video */
-    text-align: center;
     color: white; /* Ensure text is visible */
-    font-size: 3rem;
   }
   

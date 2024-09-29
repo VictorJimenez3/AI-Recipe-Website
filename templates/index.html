@@ -16,28 +16,26 @@
           Your browser does not support the video tag.
         </video>
         <div class="content">
-          <!-- Your content here -->
-          <h1>Recipe Generator</h1>
+            <div id="rest-of-the-website" class="container-fluid">
+                <h1 id="title" style="font-size: 70px;" class="text-center display-1">AI Recipe Generator</h1>
+                <div id="textarea" class="mt-4">
+                    <label for="inputname" class="block text-sm font-semibold" style="color: #ffd700;">Type in your ingredients. You may ask for a recipe too.</label>
+                    <div class="mt-2">
+                        <input
+                            type="text"
+                            name="inputname"
+                            class="block w-100 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400"
+                            id="ingredients"
+                        />
+                    </div>
+                </div>
+                <div id="center" class="d-flex justify-content-end mt-3" style="margin-top: 20px;">
+                <button class="button" onclick="myFunction()">Generate</button>
+                </div>
+        </div>
+    
+        <div id="recipes" class="container d-flex flex-wrap justify-content-between"></div>
         </div>
       </div>      
-    <div id="rest-of-the-website" class="container-fluid">
-            <h1 id="title" style="font-size: 70px;" class="text-center display-1">Recipe Generator</h1>
-            <div id="textarea" class="mt-4">
-                <label for="inputname" class="block text-sm font-semibold" style="color: #ffd700;">Type in your ingredients. You may ask for a recipe too.</label>
-                <div class="mt-2">
-                    <input
-                        type="text"
-                        name="inputname"
-                        class="block w-100 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400"
-                        id="ingredients"
-                    />
-                </div>
-            </div>
-            <div id="center" class="d-flex justify-content-end mt-3" style="margin-top: 20px;">
-            <button class="button" onclick="myFunction()">Generate</button>
-            </div>
-    </div>
-
-    <div id="recipes" class="container d-flex flex-wrap justify-content-between"></div>
 </body>
 </html>
