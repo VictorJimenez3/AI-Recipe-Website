@@ -75,7 +75,7 @@ h3 {
 #ingredients:focus {
     border-color: #b7e7e3; /* Neon cyan focus border */
     outline: none; /* Remove default outline */
-    box-shadow: 0 0 5px #ff00ff;/* Cyan shadow on focus */
+    box-shadow: 0 0 5px #ff00ff; /* Cyan shadow on focus */
 }
 
 #ingredients:hover {
@@ -113,14 +113,15 @@ h3 {
 #center {
     text-align: justify;
 }
+
 .video-container {
     position: relative;
     width: 100%;
-    height: 100vh; /* Full viewport height */
+    height: 130vh; /* Full viewport height */
     overflow: hidden;
-  }
-  
-  #background-video {
+}
+
+#background-video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -132,11 +133,10 @@ h3 {
     transform: translate(-50%, -50%);
     background-size: cover;
     filter: brightness(0.5); /* Optional: darken the video */
-  }
-  
-  .content {
+}
+
+.content {
     position: relative;
     z-index: 1; /* Content stays above the video */
     color: white; /* Ensure text is visible */
-  }
-  
+}

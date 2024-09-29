@@ -80,9 +80,9 @@ function myFunction() {
                     ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
                 </ul>
                 <h3>Allergens:</h3>
-                <p>${recipe.allergen_information}</p>
+                <p>${recipe.allergens}</p>
                 <h4>Calories:</h4>
-                <p>${recipe.calorie_count}</p>
+                <p>${recipe.calories}${recipe.Calories}</p>
 
             `;
             recipesDiv.appendChild(recipeElement);
