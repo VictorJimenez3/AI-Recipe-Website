@@ -140,14 +140,18 @@ def save_recipe():
 @app.route('/show-saved-recipes', methods=['GET'])
 def show_saved_recipes():
     # Fetch all saved recipes from MongoDB
+    recipes = list(recipes_collection.find({}))
     
-  #  recipes = list(recipes_collection.find({}))
+    # Log the number of recipes fetched
+    print(f"Fetched {len(recipes)} recipes.")
     
     # Convert MongoDB ObjectId to string and format data for JSON response
     for recipe in recipes:
         recipe['_id'] = str(recipe['_id'])
     
-    return jsonify({"recipes": recipes})
+    return jsonify({"recipes": recipes})  # Ensure the response is wrapped in a 'recipes' key
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
