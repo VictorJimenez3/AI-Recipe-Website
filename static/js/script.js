@@ -105,10 +105,11 @@
                     </ul>
                     <h3>Allergen Information:</h3>
                     <p>${recipe.AllergenInformation || 'None'}</p>
-                    <h4>${calorieLabel}:</h4>
-                    <p>${calorieValue}</p>
                     <h3>Instructions:</h3>
                     <ul>${instructionsList}</ul>
+                    <h4>${calorieLabel}:</h4>
+                    <p>${calorieValue}</p>
+                    
                 `;
                 
                 recipesDiv.appendChild(recipeElement);
