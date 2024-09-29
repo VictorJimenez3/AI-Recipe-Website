@@ -87,9 +87,8 @@ h3 {
     --secondary-color: #ff00ff; /* Neon pink */
     cursor: pointer;
     margin: 10px;
-    width: 144px;
-    height: 38px;
-    display: flex;
+    padding: 10px 20px; /* Adjust padding as needed */
+    display: inline-flex; /* Allows the button to resize with the content */
     align-items: center;
     justify-content: center;
     gap: 1rem;
