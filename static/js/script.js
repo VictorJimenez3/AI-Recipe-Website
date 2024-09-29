@@ -103,10 +103,12 @@
                     <p>${recipe.allergens || 'None'}</p>
                     <h4>${calorieLabel}:</h4>
                     <p>${calorieValue}</p>
+                    <button class="button" onclick="saveRecipe('${recipe.title}', '${recipe.description}', '${recipe.ingredients.join(",")}')">Save Recipe</button>
                 `;
                 
                 recipesDiv.appendChild(recipeElement);
             }
+            
             
             
 
