@@ -1,0 +1,142 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+html {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400; /* Default weight for body text */
+    background-color: #282828; /* Silver background */
+}
+
+#rest-of-the-website {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400; /* Default weight for body text */
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+h1 {
+    margin: 0;
+    margin-top: 10%; /* Reset margin for better spacing */
+    text-align: center;
+    color: #ff00ff; /* Neon pink */
+}
+
+#recipes {
+    margin: 10px;
+    border-radius: 15px;
+    background-color: #282828; /* Dark background for recipe section */
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: space-between; /* Space out items */
+    color: #00ffea; /* Neon cyan */
+}
+
+h2 {
+    font-weight: 700; /* Weight for titles */
+    color: #ffd700; /* Gold titles */
+}
+
+h3 {
+    font-weight: 600; /* Weight for subheadings */
+    color: #39ff14; /* Neon green */
+}
+
+.recipe {
+    margin-bottom: 20px;
+    border: 2px solid #ff00ff; /* Neon pink border */
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #8000ff; /* Vibrant purple background for individual recipes */
+    flex: 1 1 calc(30% - 10px); /* Each recipe takes up about 30% of the container */
+    box-shadow: 0 4px 10px rgba(255, 0, 255, 0.6); /* Pink shadow */
+    margin: 5px; /* Space between recipe items */
+    color: #fff; /* White text for readability */
+}
+
+.recipe:hover {
+box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+}
+
+
+#textarea {
+    margin-top: 50px;
+}
+
+#ingredients {
+    width: 100%;
+    height: 80px; /* Increased height */
+    padding: 12px; /* Added padding */
+    border: 2px solid #ff00ff; /* Neon pink border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(255, 0, 255, 0.5); /* Pink shadow */
+    font-size: 16px; /* Increased font size */
+    transition: border-color 0.3s ease; /* Smooth transition */
+    background-color: #1e1e2f; /* Dark background for input box */
+    color: #fff; /* White text */
+}
+
+#ingredients:focus {
+    border-color: #00ffea; /* Neon cyan focus border */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(0, 255, 234, 0.5); /* Cyan shadow on focus */
+}
+
+#ingredients:hover {
+box-shadow: 0 0 10px hsl(175, 100%, 50%); /* Neon glow */
+}
+
+.button {
+    --😀: #00ffff; /* Neon cyan */
+    --😀😀: #ff00ff; /* Neon pink */
+    cursor: pointer;
+    margin: 10px;
+    width: 144px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    background: var(--😀);
+    border: 2px solid var(--😀😀);
+    border-radius: .75rem;
+    box-shadow: 0 8px 0 var(--😀😀);
+    transition: all .1s ease;
+}
+
+.button:active {
+    letter-spacing: 0px;
+    transform: translateY(2px);
+    box-shadow: 0 0 0 var(--😀😀);
+}
+
+#center {
+    text-align: justify;
+}
+
+/* Sparkles CSS */
+.sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkle-animation 0.6s forwards;
+}
+
+@keyframes sparkle-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+</style>
