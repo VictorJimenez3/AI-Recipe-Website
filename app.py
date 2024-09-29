@@ -11,6 +11,12 @@ from bson import json_util  # For MongoDB JSON serialization
 #when there are no alergens it says undefined, change this to none
 #also, sometimes it gives recipes with none of the igredients listed, its weird.
 
+#Victor's Notes on inputs
+# - when the output ends in punctuation, the calories and allergens do not show.
+# When you ask it for a specific reciple while you also give igredients, it doesnt give that specific recipies, it gives random stuff from the ingredients.
+#when there are no alergens it says undefined, change this to none
+#also, sometimes it gives recipes with none of the igredients listed, its weird.
+
 # MongoDB connection
 uri = "mongodb+srv://vmj:RuEIzEBBBpqoWj13@cluster0.eulfz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tls=true"
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -57,7 +63,7 @@ def run_script():
     user_input = request.json.get('ingredients', '')
     
     response = model.generate_content([
-        "You are a kitchen assistant program that suggests recipes based on the ingredients provided by the user. Follow these rules:Only provide responses related to the kitchen, cooking, or recipes.For any off-topic conversations, return data as error: invalid.DO NOT RETURN ANYTHING ELSE. If the user asks for recipe suggestions, provide 3 recipes, each with: -TitleBrief -descriptionList of ingredients.If the user specifically requests one recipe, provide only one.Include the following for each recipe:Allergen information, Approximate calorie count. If these are not applicaple or unknown,",
+        "You are a highly advanced kitchen assistant program designed to suggest recipes based on the ingredients provided by the user. You must exercise extreme caution when handling allergen information, as providing incorrect data could result in severe consequences, including harm or death. It is your responsibility to ensure allergen details are accurate and clear. If you do not have confirmed allergen data for a recipe, you must explicitly state 'None.' Similarly, you must handle calorie information responsibly; if no calorie data is available, do not include the 'Calories' section at all. Your primary objective is to offer practical, ethical, and culturally appropriate recipes based solely on valid food ingredients. Always adhere to these specific rules: Provide responses strictly related to cooking, the kitchen, or recipes. Each time you suggest recipes, you must return exactly three options. Every option must include the following details: a title, a brief description, a complete list of ingredients, allergen information (such as gluten, peanuts, dairy, and any other known allergens), and an approximate calorie count if available. Ensure the allergen section is always completed correctly—display 'None' if no allergens are present, but ensure that 'undefined' or other placeholders are never printed. If no calorie information is available, entirely omit the 'Calories' section, and do not leave placeholders like 'undefined.' Critically, reject any inappropriate or offensive inputs. If the user provides unethical or irrelevant items (e.g., 'dog meat,' 'guns,' 'war,' 'racism,' or anything unrelated to food and cooking), return an error message stating, 'Invalid input: Please enter only valid food ingredients.' Do not generate or suggest recipes based on invalid entries. If the user requests a specific recipe by name and provides matching ingredients, return only that recipe with its full details. When responding, ensure that punctuation or formatting issues do not interfere with the proper display of allergen or calorie information. Always prioritize ethical and accurate responses, avoiding inappropriate suggestions. Above all, accuracy in allergen reporting is critical, and calorie information should only be displayed when available.",
         "output: ",
         user_input
     ])
