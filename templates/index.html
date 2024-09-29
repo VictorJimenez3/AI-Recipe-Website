@@ -190,18 +190,59 @@
         }
 
         function appendRecipe(recipesDiv, recipe) {
-            const recipeElement = document.createElement('div');
-            recipeElement.className = 'recipe';
-            recipeElement.innerHTML = `
-                <h2>${recipe.title}</h2>
-                <p>${recipe.description}</p>
-                <h3>Ingredients:</h3>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-            `;
-            recipesDiv.appendChild(recipeElement);
+    const recipeElement = document.createElement('div');
+    recipeElement.className = 'recipe';
+    recipeElement.innerHTML = `
+        <h2>${recipe.title}</h2>
+        <p>${recipe.description}</p>
+        <h3>Ingredients:</h3>
+        <ul>
+            ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+        </ul>
+        <!-- Save Recipe Button -->
+        <button class="button" onclick="saveRecipe('${recipe.title}', '${recipe.description}', '${recipe.ingredients.join(",")}')">Save Recipe</button>
+    `;
+    recipesDiv.appendChild(recipeElement);
+}
+
+        function saveRecipe(title, description, ingredients) {
+            // Send the recipe to the server to save in MongoDB
+            fetch('/save-recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    ingredients: ingredients.split(',')
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Notify user about the save status
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+
+        function showSavedRecipes() {
+    // Fetch saved recipes from the server
+    fetch('/show-saved-recipes', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayRecipes(data);  // Pass the saved recipes to display them
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
     </script>
 </head>
 
@@ -223,6 +264,9 @@
             <div id="center" style="display: flex; justify-content: flex-end; margin-top: 20px;">
                 <strong>
                     <button class="button" onclick="myFunction()">Generate</button>
+                </strong>
+                <strong>
+                    <button class="button" onclick="showSavedRecipes()">Show Saved Recipes</button>
                 </strong>
             </div>
         </div>
