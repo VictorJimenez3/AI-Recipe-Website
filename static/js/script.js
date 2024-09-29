@@ -75,7 +75,6 @@
             
             
             
-
             function appendRecipe(recipesDiv, recipe) {
                 console.log("Appending recipe:", recipe); // Log each recipe
                 const recipeElement = document.createElement('div');
@@ -84,13 +83,18 @@
                 let calorieLabel = '';
                 let calorieValue = '';
             
-                if (recipe.calories) {
-                    calorieLabel = 'Calories';
-                    calorieValue = recipe.calories;
+                if (recipe.ApproximateCalorieCount) {
+                    calorieLabel = 'Approximate Calorie Count';
+                    calorieValue = recipe.ApproximateCalorieCount;
                 } else {
-                    calorieLabel = 'Calories';
+                    calorieLabel = 'Approximate Calorie Count';
                     calorieValue = 'Not available';
                 }
+            
+                // Split Instructions into an array
+                const instructionsList = recipe.Instructions 
+                    ? recipe.Instructions.split('\n').map(step => `<li>${step}</li>`).join('')
+                    : '<li>No instructions available</li>';
             
                 recipeElement.innerHTML = `
                     <h2>${recipe.title}</h2>
@@ -99,14 +103,19 @@
                     <ul>
                         ${Array.isArray(recipe.ingredients) ? recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('') : '<li>No ingredients available</li>'}
                     </ul>
-                    <h3>Allergens:</h3>
-                    <p>${recipe.allergens || 'None'}</p>
+                    <h3>Allergen Information:</h3>
+                    <p>${recipe.AllergenInformation || 'None'}</p>
                     <h4>${calorieLabel}:</h4>
                     <p>${calorieValue}</p>
+                    <h3>Instructions:</h3>
+                    <ul>${instructionsList}</ul>
                 `;
                 
                 recipesDiv.appendChild(recipeElement);
             }
+            
+            
+            
             
             
             
