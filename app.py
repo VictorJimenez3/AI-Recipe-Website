@@ -37,12 +37,12 @@ model = genai.GenerativeModel(
 recipes = list(recipes_collection.find({}))
 
 # Print recipes in a readable format
-for recipe in recipes:
-    print("Recipe ID:", recipe.get("_id"))
-    print("Title:", recipe.get("title", "N/A"))
-    print("Description:", recipe.get("description", "N/A"))
-    print("Ingredients:", ", ".join(recipe.get("ingredients", [])))
-    print("-" * 40)  # Separator between recipes
+#for recipe in recipes:
+#    print("Recipe ID:", recipe.get("_id"))
+#    print("Title:", recipe.get("title", "N/A"))
+#    print("Description:", recipe.get("description", "N/A"))
+#    print("Ingredients:", ", ".join(recipe.get("ingredients", [])))
+#    print("-" * 40)  # Separator between recipes
 
 app = Flask(__name__)
 
