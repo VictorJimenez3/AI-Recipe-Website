@@ -87,3 +87,32 @@ function myFunction() {
             `;
             recipesDiv.appendChild(recipeElement);
         }
+
+        function saveRecipe(title, description, ingredients) {
+            fetch('/save-recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    ingredients: ingredients.split(',')
+                })
+            })
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function showSavedRecipes() {
+            fetch('/show-saved-recipes', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(data => displayRecipes(data))
+                .catch(error => console.error('Error:', error));
+        }
